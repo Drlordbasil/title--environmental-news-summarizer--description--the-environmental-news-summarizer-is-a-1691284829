@@ -33,7 +33,8 @@ class EnvironmentalNewsSummarizer:
                 article_url = article.find("a")["href"]
                 sentiment = self.analyze_sentiment(summary)
 
-                self.articles.append(Article(title, source, summary, sentiment))
+                self.articles.append(
+                    Article(title, source, summary, sentiment))
 
     def analyze_sentiment(self, text):
         blob = TextBlob(text)
@@ -48,7 +49,8 @@ class EnvironmentalNewsSummarizer:
 
     def summarize_articles(self):
         for article in self.articles:
-            summary = self.model(article.summary, max_length=100, min_length=30, do_sample=False)
+            summary = self.model(
+                article.summary, max_length=100, min_length=30, do_sample=False)
             article.summary = summary[0]['summary_text']
 
     def filter_articles(self, topic):
@@ -92,13 +94,16 @@ class GUI:
         self.label_summary = tk.Label(window, text="Summary:")
         self.label_summary.pack()
 
-        self.text_summary = scrolledtext.ScrolledText(window, height=10, width=50)
+        self.text_summary = scrolledtext.ScrolledText(
+            window, height=10, width=50)
         self.text_summary.pack()
 
-        self.button_refresh = tk.Button(window, text="Refresh", command=self.refresh_articles)
+        self.button_refresh = tk.Button(
+            window, text="Refresh", command=self.refresh_articles)
         self.button_refresh.pack()
 
-        self.button_filter = tk.Button(window, text="Filter", command=self.filter_articles)
+        self.button_filter = tk.Button(
+            window, text="Filter", command=self.filter_articles)
         self.button_filter.pack()
 
         self.scraper = EnvironmentalNewsSummarizer()
@@ -114,12 +119,15 @@ class GUI:
             if filtered_articles:
                 self.display_summary(filtered_articles[0])
             else:
-                messagebox.showinfo("No Articles Found", "No articles found related to the specified topic.")
+                messagebox.showinfo(
+                    "No Articles Found", "No articles found related to the specified topic.")
         else:
-            messagebox.showinfo("Topic Not Specified", "Please enter a topic to filter the articles.")
+            messagebox.showinfo("Topic Not Specified",
+                                "Please enter a topic to filter the articles.")
 
     def update_sources(self):
-        self.scraper.sources = [source for checkbutton, source in self.checkbutton_sources if checkbutton.get() == 1]
+        self.scraper.sources = [
+            source for checkbutton, source in self.checkbutton_sources if checkbutton.get() == 1]
 
     def display_summary(self, article):
         self.text_summary.delete(1.0, tk.END)
