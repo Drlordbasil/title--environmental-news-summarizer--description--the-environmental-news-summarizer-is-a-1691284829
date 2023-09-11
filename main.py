@@ -1,10 +1,11 @@
-import requests
-from bs4 import BeautifulSoup
-from transformers import pipeline
-from textblob import TextBlob
-import tkinter as tk
-from tkinter import messagebox
 from tkinter import scrolledtext
+from tkinter import messagebox
+import tkinter as tk
+from textblob import TextBlob
+from transformers import pipeline
+from bs4 import BeautifulSoup
+import requests
+Optimized Python script:
 
 
 class Article:
@@ -23,8 +24,8 @@ class EnvironmentalNewsSummarizer:
 
     def scrape_news_websites(self):
         for source in self.sources:
-            response = requests.get(source)
-            soup = BeautifulSoup(response.content, "html.parser")
+            url = requests.get(source)
+            soup = BeautifulSoup(url.content, "html.parser")
             articles = soup.find_all("article")
 
             for article in articles:
